@@ -1,2 +1,12 @@
-# Projeto_Final_Luiza_Code
-Projeto final Luiza Code.
+## Projeto Final Luiza Code
+
+##### Integrantes do grupo Dream Women
+
+- Andrea Gnecco
+- Daniele Cassita
+- Gabriela Silvestre
+- Jokebede Coimbra 
+- Rosicleite Monteiro 
+
+
+
