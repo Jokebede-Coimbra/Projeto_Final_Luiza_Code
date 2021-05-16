@@ -41,6 +41,10 @@ public class Cliente implements Serializable {
         this.senha = senha;
     }
 
+    @Deprecated
+    protected Cliente() {
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
