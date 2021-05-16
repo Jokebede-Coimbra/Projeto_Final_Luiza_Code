@@ -1,9 +1,12 @@
 package br.com.luizacode.wishlist.entity;
 
-
-import com.sun.istack.NotNull;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,11 +18,11 @@ public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long ID;
+    private Long id;
 
     @Column(name = "nome")
     @NotNull
-    private String nomeProduto;
+    private String nome;
 
     @Column(name = "valor")
     @NotNull
@@ -29,9 +32,43 @@ public class Produto implements Serializable {
     @NotNull
     private String descricao;
 
-
     // IMAGEM JPEG? precisa de coluna? //
+    // A ideia é que seja a URL com um link para a imagem
     @Column(name = "imagem")
-    @NotNull
     private String imagem;
+
+    public Produto(String nome, BigDecimal valor, String descricao, String imagem) {
+        this.nome = nome;
+        this.valor = valor;
+        this.descricao = descricao;
+        this.imagem = imagem;
+    }
+
+    @Deprecated
+    protected Produto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
