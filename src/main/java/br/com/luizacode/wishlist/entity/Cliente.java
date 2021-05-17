@@ -18,8 +18,8 @@ public class Cliente implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank
     @NotNull
@@ -41,12 +41,16 @@ public class Cliente implements Serializable {
         this.senha = senha;
     }
 
+    @Deprecated
+    protected Cliente() {
+    }
+
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNome() {
@@ -55,6 +59,7 @@ public class Cliente implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+
     }
 
     public String getEmail() {
@@ -72,4 +77,5 @@ public class Cliente implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
 }
