@@ -26,12 +26,13 @@ public class WishlistController {
     //criar uma wishlist (sem login do usuário)
     @PostMapping("/wishlist")
     public Wishlist adicionarWishlist(@RequestBody Wishlist wishlist) {
+        //TODO criar DTO
         return wishlistService.criarWishlist(wishlist);
     }
 
     //adicionar produtos
     @PostMapping("/wishlist/{id}/adicionar")
-    public Wishlist adicionarProduto(@PathVariable long id, Produto produto) {
+    public Wishlist adicionarProduto(@PathVariable long id, @RequestBody Produto produto) {
         return wishlistService.adicionarProduto(id, produto);
     }
 
@@ -42,49 +43,52 @@ public class WishlistController {
     }
 
     //buscar produtos na wishlist
-    @GetMapping ("/wishlist/{id}/buscar")
-    public ResponseEntity<List<?>> buscarProdutos (@PathVariable Long id, Produto produto) {
+    @GetMapping ("/wishlist/{idWishlist}/produtos/{idProduto}")
+    public ResponseEntity<?> buscarProdutos (@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
-            produto = wishlistService.buscarProduto(id, produto);
-            if (produto == null) {
+            Produto produtoWishlist = wishlistService.buscarProduto(idWishlist, idProduto);
+            if (produtoWishlist == null) {
+                // produto existe, mas nao esta na wishlist
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
-                Object produtos = null;
-                List <Produto> listaProdutos = ;
-                return new ResponseEntity<> (listaProdutos, HttpStatus.OK);
+                // produto existe e esta na wishlist
+                return new ResponseEntity<>(produtoWishlist, HttpStatus.OK);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            // Dois problemas possíveis na requisição
+            // 1o) wishlist não existe
+            // 2o) produto nao existe
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    //atualizar lista para apagar produto
-    @PutMapping(value = "wishlist/{id}")
-    public ResponseEntity<?> apagarProdutos(@PathVariable Long id) {
-        try {
-            Wishlist wishlist = wishlistService.mostrarProduto(id);
-            if (wishlist == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            } else {
-                List<Produto> wishlistWishlist = wishlist.getProdutos();
-                for (Produto produto : wishlistWishlist) {
-                    Object id_produto = new Object();
-                    if (produto.getId().equals(id_produto)) {
-                        wishlist.remove(produto);
-                        wishlist.setWishlist(Wishlist);
-                        return new ResponseEntity<>(WishlistProdutoRemovido, HttpStatus.OK);
-                    }
-                }
+    //TODO atualizar lista para apagar produto
+//    @PutMapping(value = "wishlist/{id}")
+//    public ResponseEntity<?> apagarProdutos(@PathVariable Long id) {
+//        try {
+//            Wishlist wishlist = wishlistService.mostrarProduto(id);
+//            if (wishlist == null) {
+//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            } else {
+//                List<Produto> wishlistWishlist = wishlist.getProdutos();
+//                for (Produto produto : wishlistWishlist) {
+//                    Object id_produto = new Object();
+//                    if (produto.getId().equals(id_produto)) {
+//                        wishlist.remove(produto);
+//                        wishlist.setWishlist(Wishlist);
+//                        return new ResponseEntity<>(WishlistProdutoRemovido, HttpStatus.OK);
+//                    }
+//                }
+//
+//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
 
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-    }
-
-    }
+}
 
 //a fazer:
 //tratamento de erros
