@@ -1,4 +1,4 @@
-package controller;
+package br.com.luizacode.wishlist.controller;
 
 
 import br.com.luizacode.wishlist.entity.Cliente;
@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Id;
 import java.util.Optional;
 
 @Controller
@@ -22,11 +21,11 @@ public class ClienteController {
     }
 
     @GetMapping("/clientes/{id}")
-    public Optional<Cliente> buscarCliente(@PathVariable long id){
+    public Optional<Cliente> buscarCliente(@PathVariable Long id){
         return clienteService.buscarCliente(id);
     }
     @PostMapping("/clientes/{id}")
-    public Cliente atualizarCliente(@PathVariable long id, @RequestBody Cliente cliente){
+    public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
         Optional<Cliente> clientePosBusca = clienteService.buscarCliente(id);
         if(clientePosBusca.isPresent()){
             cliente.setId(clientePosBusca.get().getId());

@@ -53,7 +53,7 @@ public class WishlistController {
             if (produto == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
-                Object produtos;
+                Object produtos = null;
                 List <Produto> listaProdutos = produtos.getProdutoList();
                 return new ResponseEntity<> (listaProdutos, HttpStatus.OK);
             }
@@ -65,7 +65,7 @@ public class WishlistController {
 
     //atualizar lista para apagar produto
     @PutMapping(value = "wishlist")
-    public ResponseEntity<?> apagarProdutos(@PathVariable long id) {
+    public ResponseEntity<?> apagarProdutos(@PathVariable Long id) {
         try {
 
             Wishlist wishlist = wishlistService.mostrarProdutos(Long id); //erro?
