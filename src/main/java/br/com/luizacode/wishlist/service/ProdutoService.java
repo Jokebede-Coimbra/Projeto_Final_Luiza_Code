@@ -6,6 +6,8 @@ import br.com.luizacode.wishlist.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProdutoService {
 
@@ -18,8 +20,8 @@ public class ProdutoService {
     }
 
 
-
-
-
+    public List<Produto> listarProdutos() {
+        return produtoRepository.findAll();
+    }
 
 }
