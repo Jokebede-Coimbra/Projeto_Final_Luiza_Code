@@ -31,10 +31,11 @@ public class WishlistService {
         return null;
     }
 
-    //Adicionar produto
-    public Wishlist adicionarProduto(long id, Produto produto) {
+
+        //Adicionar produto
+    public Wishlist adicionarProduto(Long id, Produto produto){
         Optional<Wishlist> wishlistBuscado = wishlistRepository.findById(id);
-        if (wishlistBuscado.isPresent()) {
+        if (wishlistBuscado.isPresent()){
             Wishlist wishlist = wishlistBuscado.get();
             wishlist.adicionarProduto(produto);
             return wishlistRepository.save(wishlist);
@@ -42,19 +43,32 @@ public class WishlistService {
         return null;
     }
 
-//Remover produto
+    //Remover produto
 
-//Listar produtos
-public List<Produto> mostrarProdutos(Long id) {
-    Optional<Wishlist> wishlistBuscada = wishlistRepository.findById(id);
-    if (wishlistBuscada.isPresent()) {
-        //pega wishlista retornada pelo banco de dados
-        Wishlist wishlist = wishlistBuscada.get();
-        return wishlist.getProdutos();
+
+
+    //Buscar produtos
+    public List<Produto> mostrarProdutos(Long id) {
+        Optional<Wishlist> wishlistBuscada = wishlistRepository.findById(id);
+        if (wishlistBuscada.isPresent()) {
+            //pega wishlista retornada pelo banco de dados
+            Wishlist wishlist = wishlistBuscada.get();
+            return wishlist.getProdutos();
+        }
+        //a wishlist passada não existe no banco de dados
+        //retornar um erro 400 (Bad Request)
+        return null;
     }
-    //a wishlist passada não existe no banco de dados
-    //retornar um erro 400 (Bad Request)
-    return null;
-}
+
+
+    //Mostrar Produtos da Wishlist
+    public List<Produto> mostrarProduto(long id){
+        Optional<Wishlist> wishlistMostrada = wishlistRepository.findById(id);
+        if (wishlistMostrada.isPresent()){
+            Wishlist wishlist = wishlistMostrada.get();
+            return wishlist.getProdutos();
+        }
+        return null;
+    }
 
 }

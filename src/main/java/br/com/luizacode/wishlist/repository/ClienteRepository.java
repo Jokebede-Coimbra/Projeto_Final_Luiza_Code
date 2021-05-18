@@ -11,5 +11,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     Optional<Cliente> findById(Long id);
 
+    Cliente save(Cliente cliente);
 
+    Long count();
+  
 }

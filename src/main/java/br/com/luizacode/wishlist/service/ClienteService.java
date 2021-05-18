@@ -25,4 +25,6 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
+    public long quantidadeDeClientes(){return clienteRepository.count();}
+
 }
