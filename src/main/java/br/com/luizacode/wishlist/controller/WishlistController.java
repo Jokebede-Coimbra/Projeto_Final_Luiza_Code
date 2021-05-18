@@ -1,18 +1,13 @@
 package br.com.luizacode.wishlist.controller;
 
-import br.com.luizacode.wishlist.entity.Cliente;
 import br.com.luizacode.wishlist.entity.Produto;
 import br.com.luizacode.wishlist.entity.Wishlist;
-import br.com.luizacode.wishlist.service.ClienteService;
 import br.com.luizacode.wishlist.service.WishlistService;
-import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Id;
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -21,8 +16,11 @@ public class WishlistController {
 
     @Autowired
     private WishlistService wishlistService;
+
     private Object Wishlist;
+
     private Object WishlistProdutoRemovido;
+
     private Object Id;
 
     //criar uma wishlist (sem login do usuário)
@@ -35,40 +33,36 @@ public class WishlistController {
     @PostMapping("/wishlist/{id}/adicionar")
     public Wishlist adicionarProduto(@PathVariable long id, Produto produto) {
         return wishlistService.adicionarProduto(id, produto);
-
-
     }
 
-    //mostrar todos os produtos
+    //listar todos os produtos da wishlist
     @GetMapping("/wishlist/{id}/produtos")
     public List<Produto> mostrarProdutos(@PathVariable long id) {
-        return wishlistService.mostrarProdutos(id);
+        return wishlistService.mostrarProduto(id);
     }
 
-    //buscar produtos
+    //buscar produtos na wishlist
     @GetMapping ("/wishlist/{id}/buscar")
-    public ResponseEntity<List<?>> buscarProdutos (@PathVariable long id, Produto produto) {
+    public ResponseEntity<List<?>> buscarProdutos (@PathVariable Long id, Produto produto) {
         try {
-            produto = produto.buscarProduto(Id);
+            produto = wishlistService.buscarProduto(id, produto);
             if (produto == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
                 Object produtos = null;
-                List <Produto> listaProdutos = produtos.getProdutoList();
+                List <Produto> listaProdutos = ;
                 return new ResponseEntity<> (listaProdutos, HttpStatus.OK);
             }
-
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     //atualizar lista para apagar produto
-    @PutMapping(value = "wishlist")
+    @PutMapping(value = "wishlist/{id}")
     public ResponseEntity<?> apagarProdutos(@PathVariable Long id) {
         try {
-
-            Wishlist wishlist = wishlistService.mostrarProdutos(Long id); //erro?
+            Wishlist wishlist = wishlistService.mostrarProduto(id);
             if (wishlist == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {

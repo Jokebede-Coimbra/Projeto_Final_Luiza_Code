@@ -20,7 +20,7 @@ public class WishlistService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    //Criar wishlist
+    //criar uma wishlist (sem login do usuário)
     public Wishlist criarWishlist(Wishlist wishlist) {
         Cliente clienteWishlist = wishlist.getCliente();
         Optional<Cliente> clienteBuscado = clienteRepository.findById(clienteWishlist.getId());
@@ -31,11 +31,10 @@ public class WishlistService {
         return null;
     }
 
-
-        //Adicionar produto
-    public Wishlist adicionarProduto(Long id, Produto produto){
+    //adicionar produtos
+    public Wishlist adicionarProduto(Long id, Produto produto) {
         Optional<Wishlist> wishlistBuscado = wishlistRepository.findById(id);
-        if (wishlistBuscado.isPresent()){
+        if (wishlistBuscado.isPresent()) {
             Wishlist wishlist = wishlistBuscado.get();
             wishlist.adicionarProduto(produto);
             return wishlistRepository.save(wishlist);
@@ -43,32 +42,40 @@ public class WishlistService {
         return null;
     }
 
-    //Remover produto
-
-
-
-    //Buscar produtos
-    public List<Produto> mostrarProdutos(Long id) {
+    //listar todos os produtos da wishlist
+    public List<Produto> mostrarProduto(Long id) {
+        //verificar se a wishlist existe
         Optional<Wishlist> wishlistBuscada = wishlistRepository.findById(id);
         if (wishlistBuscada.isPresent()) {
-            //pega wishlista retornada pelo banco de dados
             Wishlist wishlist = wishlistBuscada.get();
             return wishlist.getProdutos();
         }
-        //a wishlist passada não existe no banco de dados
-        //retornar um erro 400 (Bad Request)
         return null;
     }
 
-
-    //Mostrar Produtos da Wishlist
-    public List<Produto> mostrarProduto(long id){
-        Optional<Wishlist> wishlistMostrada = wishlistRepository.findById(id);
-        if (wishlistMostrada.isPresent()){
-            Wishlist wishlist = wishlistMostrada.get();
-            return wishlist.getProdutos();
+    //buscar produtos na wishlist
+    public Produto buscarProduto(Long id, Produto produtoBuscado) {
+        //verificar se a wishlist existe
+        Optional<Wishlist> wishlistBuscada = wishlistRepository.findById(id);
+        if (wishlistBuscada.isPresent()) {
+            Wishlist wishlist = wishlistBuscada.get();
+            List<Produto> produtosWishlist = wishlist.getProdutos();
+            //buscar produtos dentro da wishlist
+            // para cada produto p em produtos
+            for (Produto produtoWishlist : produtosWishlist) {
+                // verifica se o nome do produto p eh igual ao nome do produto recebido
+                String nomeDoProdutoWishlist = produtoWishlist.getNome();
+                String nomeDoProdutoBuscado = produtoWishlist.getNome();
+                if (nomeDoProdutoWishlist.equalsIgnoreCase(nomeDoProdutoBuscado)) {
+                    return produtoWishlist;
+                }
+            }
+        } else {
+            return null;
         }
         return null;
+        //remover produto da wishlist
+
     }
 
 }

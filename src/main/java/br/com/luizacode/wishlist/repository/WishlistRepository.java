@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
 
 
+
     Wishlist save(Wishlist wishlist);
 }
