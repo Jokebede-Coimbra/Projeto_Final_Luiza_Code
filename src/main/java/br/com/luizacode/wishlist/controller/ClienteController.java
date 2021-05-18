@@ -24,7 +24,8 @@ public class ClienteController {
     public Optional<Cliente> buscarCliente(@PathVariable Long id){
         return clienteService.buscarCliente(id);
     }
-    @PostMapping("/clientes/{id}")
+
+    @PutMapping("/clientes/{id}")
     public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
         Optional<Cliente> clientePosBusca = clienteService.buscarCliente(id);
         if(clientePosBusca.isPresent()){
