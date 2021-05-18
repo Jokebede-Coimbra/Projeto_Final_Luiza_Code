@@ -34,4 +34,10 @@ public class Produto implements Serializable {
     @Column(name = "imagem")
     @NotNull
     private String imagem;
+
+    public Object getId() {
+    }
+
+    public Produto buscarProduto(Object id) {
+    }
 }

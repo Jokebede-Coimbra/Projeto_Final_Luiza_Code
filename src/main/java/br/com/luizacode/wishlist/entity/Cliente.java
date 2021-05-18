@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.TimeZone;
 
 @Entity
 @Table(name = "cliente")
@@ -40,5 +41,10 @@ public class Cliente implements Serializable {
         this.email = email;
         this.senha = senha;
     }
+
+    public long getId() {
+    return Id;
+    }
+
 
 }

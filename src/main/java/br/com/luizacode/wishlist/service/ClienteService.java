@@ -5,6 +5,8 @@ import br.com.luizacode.wishlist.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClienteService {
 
@@ -15,8 +17,8 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente buscarCliente(Long id) {
-        return clienteRepository.findById(id.longValue());
+    public Optional<Cliente> buscarCliente(Long id) {
+        return clienteRepository.findById(id);
     }
 
     public Cliente atualizarCliente(Cliente cliente){

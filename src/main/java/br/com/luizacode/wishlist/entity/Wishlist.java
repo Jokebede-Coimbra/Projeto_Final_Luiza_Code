@@ -30,4 +30,21 @@ public class Wishlist implements Serializable {
     @OneToMany
     private List<Produto> produtos;
 
+    public void adicionarProduto(Produto produto) {
+        produtos.add(produto);
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void remove(Produto produto) {
+    }
+
+    public void setWishlist(Object wishlist) {
+    }
 }
