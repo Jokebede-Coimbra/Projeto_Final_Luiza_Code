@@ -18,11 +18,13 @@ public class ClienteService {
     }
 
     public Optional<Cliente> buscarCliente(Long id) {
-        return clienteRepository.findById(id.longValue());
+        return clienteRepository.findById(id);
     }
 
     public Cliente atualizarCliente(Cliente cliente){
         return clienteRepository.save(cliente);
     }
+
+    public long quantidadeDeClientes(){return clienteRepository.count();}
 
 }

@@ -9,8 +9,10 @@ import java.util.Optional;
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-
-
     Optional<Cliente> findById(long id);
 
+    Cliente save(Cliente cliente);
+
+    long count();
+  
 }
