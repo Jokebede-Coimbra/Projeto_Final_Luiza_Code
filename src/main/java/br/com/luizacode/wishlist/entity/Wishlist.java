@@ -48,4 +48,10 @@ public class Wishlist implements Serializable {
     public void adicionarProduto(Produto produto) {
         produtos.add(produto);
     }
+
+    public void remove(Produto produto) {
+    }
+
+    public void setWishlist(Object wishlist) {
+    }
 }
