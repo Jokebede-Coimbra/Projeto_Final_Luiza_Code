@@ -33,7 +33,7 @@ public class WishlistService {
 
 
         //Adicionar produto
-    public Wishlist adicionarProduto(long id, Produto produto){
+    public Wishlist adicionarProduto(Long id, Produto produto){
         Optional<Wishlist> wishlistBuscado = wishlistRepository.findById(id);
         if (wishlistBuscado.isPresent()){
             Wishlist wishlist = wishlistBuscado.get();
@@ -47,7 +47,7 @@ public class WishlistService {
 
 
 
-    //Listar produtos
+    //Buscar produtos
     public List<Produto> mostrarProdutos(Long id) {
         Optional<Wishlist> wishlistBuscada = wishlistRepository.findById(id);
         if (wishlistBuscada.isPresent()) {
@@ -72,5 +72,3 @@ public class WishlistService {
     }
 
 }
-
-
