@@ -4,12 +4,12 @@ package br.com.luizacode.wishlist.controller;
 import br.com.luizacode.wishlist.entity.Cliente;
 import br.com.luizacode.wishlist.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class ClienteController {
 
     @Autowired
