@@ -13,6 +13,4 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     Cliente save(Cliente cliente);
 
-    Long count();
-  
 }

@@ -21,10 +21,8 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
-    public Cliente atualizarCliente(Cliente cliente){
+    public Cliente atualizarCliente(Cliente cliente) {
         return clienteRepository.save(cliente);
     }
-
-    public long quantidadeDeClientes(){return clienteRepository.count();}
 
 }
