@@ -14,14 +14,13 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    // Adiciona produto ao banco de dados //
+    //adicionar produto ao banco de dados
     public Produto adicionarProduto(Produto produto) {
         return produtoRepository.save(produto);
     }
 
-
+    //listar produtos no banco de dados
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
     }
-
 }
