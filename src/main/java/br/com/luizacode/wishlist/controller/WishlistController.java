@@ -32,17 +32,22 @@ public class WishlistController {
     }
 
     //ADICIONAR produtos na wishlist
-    @PostMapping("/wishlist/{id}/adicionar")
-    public Wishlist adicionarProduto(@PathVariable long id, @RequestBody Produto produto) {
-        //TODO tratar quando o produto não existe
-        return wishlistService.adicionarProduto(id, produto);
+    @PostMapping("/wishlist/{idWishlist}/adicionar")
+    public ResponseEntity<?> adicionarProduto(@PathVariable Long idWishlist, @RequestBody Produto produto) {
+        try {
+            Wishlist wishlist = wishlistService.adicionarProduto(idWishlist, produto);
+            return new ResponseEntity<>(wishlist, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
     }
 
     //LISTAR todos os produtos da wishlist
-    @GetMapping("/wishlist/{id}/produtos")
-    public ResponseEntity<?> mostrarProdutos(@PathVariable long id) {
+    @GetMapping("/wishlist/{idWishlist}/produtos")
+    public ResponseEntity<?> mostrarProdutos(@PathVariable Long idWishlist) {
         try {
-            List<Produto> produtos = wishlistService.mostrarProduto(id);
+            List<Produto> produtos = wishlistService.mostrarProduto(idWishlist);
             return new ResponseEntity<>(produtos, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -51,9 +56,9 @@ public class WishlistController {
 
     //BUSCAR produtos na wishlist
     @GetMapping ("/wishlist/{idWishlist}/produtos/{idProduto}")
-    public ResponseEntity<?> buscarProdutos (@PathVariable Long idWishlist, @PathVariable Long idProduto) {
+    public ResponseEntity<?> buscarProdutosWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
-            Produto produtoWishlist = wishlistService.buscarProduto(idWishlist, idProduto);
+            Produto produtoWishlist = wishlistService.buscarProdutoWishlist(idWishlist, idProduto);
             if (produtoWishlist == null) {
                 // produto existe, mas nao esta na wishlist
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -65,15 +70,15 @@ public class WishlistController {
             // Dois problemas possíveis na requisição
             // 1o) wishlist não existe
             // 2o) produto nao existe
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
     //REMOVER produto da wishlist
     @DeleteMapping(value = "wishlist/{idWishlist}/produtos/{idProduto}")
-    public ResponseEntity<?> removerProduto(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
+    public ResponseEntity<?> removerProdutoWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
-            Produto produtoRemovido = wishlistService.removerProduto(idWishlist, idProduto);
+            Produto produtoRemovido = wishlistService.removerProdutoWishlist(idWishlist, idProduto);
             if (produtoRemovido == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {

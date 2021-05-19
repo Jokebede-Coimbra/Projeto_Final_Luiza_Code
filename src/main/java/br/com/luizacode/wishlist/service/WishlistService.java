@@ -37,11 +37,14 @@ public class WishlistService {
     }
 
     //adicionar produtos
-    public Wishlist adicionarProduto(Long id, Produto produto) {
-        Wishlist wishlist = buscarWishlist(id);
+    public Wishlist adicionarProduto(Long idWishlist, Produto produto) {
+        // verificar se a wishlist existe
+        Wishlist wishlist = buscarWishlist(idWishlist);
 
-        //TODO verificar se o produto existe
-        wishlist.adicionarProduto(produto);
+        // só adicionamos o produto na wishlist se ele existe no banco
+        Produto produtoBuscado = buscarProduto(produto.getId());
+
+        wishlist.adicionarProduto(produtoBuscado);
         return wishlistRepository.save(wishlist);
     }
 
@@ -52,61 +55,59 @@ public class WishlistService {
     }
 
     //buscar produtos na wishlist
-    public Produto buscarProduto(Long idWishlist, Long idProduto) {
+    public Produto buscarProdutoWishlist(Long idWishlist, Long idProduto) {
+        // verificar se a wishlist existe
         Wishlist wishlist = buscarWishlist(idWishlist);
 
-        // busca o produto no banco
-        Optional<Produto> produtoBuscado = produtoRepository.findById(idProduto);
+        // só buscamos o produto na wishlist se ele existe no banco
+        Produto produto = buscarProduto(idProduto);
 
-        // verifica se o produto existe
-        if (produtoBuscado.isPresent()) {
+        // só buscamos o produto na wishlist se ele existe no banco
+        List<Produto> produtosWishlist = wishlist.getProdutos();
 
-            // só buscamos o produto na wishlist se ele existe no banco
-            List<Produto> produtosWishlist = wishlist.getProdutos();
-
-            // percorre todos os produtos dentro da wishlist encontrada
-            // para cada um deles:
-            for (Produto produtoWishlist : produtosWishlist) {
-                // verifica se o id do produto da wishlist é igual ao id do produto buscado
-                Long idProdutoWishlist = produtoWishlist.getId();
-                if (idProdutoWishlist.equals(idProduto)) {
-                    return produtoWishlist;
-                }
+        // percorre todos os produtos dentro da wishlist encontrada
+        // para cada um deles:
+        for (Produto produtoWishlist : produtosWishlist) {
+            // verifica se o id do produto da wishlist é igual ao id do produto buscado
+            Long idProdutoWishlist = produtoWishlist.getId();
+            if (idProdutoWishlist.equals(produto.getId())) {
+                return produtoWishlist;
             }
-            // produto buscado não está na wishlist
-            return null;
         }
-        throw new IllegalArgumentException("Produto com id " + idProduto + " não existe.");
+        // produto buscado não está na wishlist
+        return null;
     }
 
-    public Produto removerProduto(Long idWishlist, Long idProduto) {
+    public Produto removerProdutoWishlist(Long idWishlist, Long idProduto) {
+        // verificar se a wishlist existe
         Wishlist wishlist = buscarWishlist(idWishlist);
 
-        // busca o produto no banco
-        Optional<Produto> produtoBuscado = produtoRepository.findById(idProduto);
+        // só removemos o produto na wishlist se ele existe no banco
+        Produto produto = buscarProduto(idProduto);
 
-        // verifica se o produto existe
-        if (produtoBuscado.isPresent()) {
+        List<Produto> produtosWishlist = wishlist.getProdutos();
 
-            // só buscamos o produto na wishlist se ele existe no banco
-
-            List<Produto> produtosWishlist = wishlist.getProdutos();
-
-            // percorre todos os produtos dentro da wishlist encontrada
-            // para cada um deles:
-            for (Produto produtoWishlist : produtosWishlist) {
-                // verifica se o id do produto da wishlist é igual ao id do produto buscado
-                Long idProdutoWishlist = produtoWishlist.getId();
-                if (idProdutoWishlist.equals(idProduto)) {
-                    wishlist.getProdutos().remove(produtoWishlist);
-                    wishlistRepository.save(wishlist);
-                    return produtoWishlist;
-                }
+        // percorre todos os produtos dentro da wishlist encontrada
+        // para cada um deles:
+        for (Produto produtoWishlist : produtosWishlist) {
+            // verifica se o id do produto da wishlist é igual ao id do produto buscado
+            Long idProdutoWishlist = produtoWishlist.getId();
+            if (idProdutoWishlist.equals(produto.getId())) {
+                wishlist.getProdutos().remove(produtoWishlist);
+                wishlistRepository.save(wishlist);
+                return produtoWishlist;
             }
-            // produto buscado não está na wishlist
-            return null;
         }
-        throw new IllegalArgumentException("Produto com id " + idProduto + " não existe.");
+        // produto buscado não está na wishlist
+        return null;
+    }
+
+    private Produto buscarProduto(Long id){
+        Optional<Produto> produtoBuscado = produtoRepository.findById(id);
+        if (produtoBuscado.isPresent()) {
+            return produtoBuscado.get();
+        }
+        throw new IllegalArgumentException("Produto com id " + id + " não existe.");
     }
 
     private Wishlist buscarWishlist(Long id) {
