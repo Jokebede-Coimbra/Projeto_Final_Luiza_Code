@@ -27,18 +27,21 @@ public class WishlistController {
     @PostMapping("/wishlist")
     public Wishlist adicionarWishlist(@RequestBody Wishlist wishlist) {
         //TODO criar DTO
+        //TODO tratar quando o cliente não existe
         return wishlistService.criarWishlist(wishlist);
     }
 
     //adicionar produtos
     @PostMapping("/wishlist/{id}/adicionar")
     public Wishlist adicionarProduto(@PathVariable long id, @RequestBody Produto produto) {
+        //TODO tratar quando o produto não existe
         return wishlistService.adicionarProduto(id, produto);
     }
 
     //listar todos os produtos da wishlist
     @GetMapping("/wishlist/{id}/produtos")
     public List<Produto> mostrarProdutos(@PathVariable long id) {
+        //TODO tratar quando a wishlist não existe
         return wishlistService.mostrarProduto(id);
     }
 
@@ -63,33 +66,22 @@ public class WishlistController {
     }
 
     //TODO atualizar lista para apagar produto
-//    @PutMapping(value = "wishlist/{id}")
-//    public ResponseEntity<?> apagarProdutos(@PathVariable Long id) {
-//        try {
-//            Wishlist wishlist = wishlistService.mostrarProduto(id);
-//            if (wishlist == null) {
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            } else {
-//                List<Produto> wishlistWishlist = wishlist.getProdutos();
-//                for (Produto produto : wishlistWishlist) {
-//                    Object id_produto = new Object();
-//                    if (produto.getId().equals(id_produto)) {
-//                        wishlist.remove(produto);
-//                        wishlist.setWishlist(Wishlist);
-//                        return new ResponseEntity<>(WishlistProdutoRemovido, HttpStatus.OK);
-//                    }
-//                }
-//
-//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//            }
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//
-//    }
+    @DeleteMapping(value = "wishlist/{idWishlist}/produtos/{idProduto}")
+    public ResponseEntity<?> removerProduto(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
+        try {
+            Produto produtoRemovido = wishlistService.removerProduto(idWishlist, idProduto);
+            if (produtoRemovido == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                //produto removido com sucesso
+                return new ResponseEntity<>(produtoRemovido, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            // Dois problemas possíveis na requisição
+            // 1o) wishlist não existe
+            // 2o) produto nao existe
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
-
-//a fazer:
-//tratamento de erros
-//verificar linhas 57 e 71

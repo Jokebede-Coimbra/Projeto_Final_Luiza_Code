@@ -98,4 +98,43 @@ public class WishlistService {
         throw new IllegalArgumentException("Wishlist com id " + idWishlist + " não existe.");
     }
 
+    public Produto removerProduto(Long idWishlist, Long idProduto) {
+        // busca a wishlist no banco
+        Optional<Wishlist> wishlistBuscada = wishlistRepository.findById(idWishlist);
+
+        // verifica se a wishlist existe
+        if (wishlistBuscada.isPresent()) {
+
+            // busca o produto no banco
+            Optional<Produto> produtoBuscado = produtoRepository.findById(idProduto);
+
+            // verifica se o produto existe
+            if (produtoBuscado.isPresent()) {
+
+                // só buscamos o produto na wishlist se ele existe no banco
+                Wishlist wishlist = wishlistBuscada.get();
+                List<Produto> produtosWishlist = wishlist.getProdutos();
+
+                // percorre todos os produtos dentro da wishlist encontrada
+                // para cada um deles:
+                for (Produto produtoWishlist : produtosWishlist) {
+                    // verifica se o id do produto da wishlist é igual ao id do produto buscado
+                    Long idProdutoWishlist = produtoWishlist.getId();
+                    if (idProdutoWishlist.equals(idProduto)) {
+                        // TODO remove produto
+                        wishlist.getProdutos().remove(produtoWishlist);
+                        wishlistRepository.save(wishlist);
+
+                    }
+                }
+                // produto buscado não está na wishlist
+                return null;
+            }
+            throw new IllegalArgumentException("Produto com id " + idProduto + " não existe.");
+        }
+
+        // wishlist buscada não existe
+        throw new IllegalArgumentException("Wishlist com id " + idWishlist + " não existe.");
+    }
+
 }

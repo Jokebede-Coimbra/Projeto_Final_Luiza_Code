@@ -51,7 +51,4 @@ public class Wishlist implements Serializable {
 
     public void remove(Produto produto) {
     }
-
-    public void setWishlist(Object wishlist) {
-    }
 }
