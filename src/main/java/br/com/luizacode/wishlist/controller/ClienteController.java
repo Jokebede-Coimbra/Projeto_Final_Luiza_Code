@@ -15,16 +15,19 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    //ADICIONAR cliente no banco de dados
     @PostMapping("/clientes")
     public Cliente addCliente (@RequestBody Cliente cliente){
         return clienteService.adicionarCliente(cliente);
     }
 
+    //BUSCAR cliente no banco de dados
     @GetMapping("/clientes/{id}")
     public Optional<Cliente> buscarCliente(@PathVariable Long id){
         return clienteService.buscarCliente(id);
     }
 
+    //ATUALIZAR CLIENTE NO BANCO DE DADOS
     @PutMapping("/clientes/{id}")
     public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
         Optional<Cliente> clientePosBusca = clienteService.buscarCliente(id);

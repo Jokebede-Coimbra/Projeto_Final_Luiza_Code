@@ -24,7 +24,7 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    //adicionar produto ao banco de dados
+    //ADICIONAR produto ao banco de dados
     @ApiOperation(value = "Adicionar novo produto")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Retorna o produto adicionado", response = Response.class),
@@ -41,7 +41,7 @@ public class ProdutoController {
         }
     }
 
-    //listar produto do banco de dados
+    //LISTAR produto do banco de dados
     @ApiOperation(value = "Buscar todos os produtos")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Retorna a lista de produtos", response = Response.class),

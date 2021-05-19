@@ -23,7 +23,7 @@ public class WishlistController {
 
     private Object Id;
 
-    //criar uma wishlist (sem login do usuário)
+    //CRIAR uma wishlist
     @PostMapping("/wishlist")
     public Wishlist adicionarWishlist(@RequestBody Wishlist wishlist) {
         //TODO criar DTO
@@ -31,21 +31,25 @@ public class WishlistController {
         return wishlistService.criarWishlist(wishlist);
     }
 
-    //adicionar produtos
+    //ADICIONAR produtos na wishlist
     @PostMapping("/wishlist/{id}/adicionar")
     public Wishlist adicionarProduto(@PathVariable long id, @RequestBody Produto produto) {
         //TODO tratar quando o produto não existe
         return wishlistService.adicionarProduto(id, produto);
     }
 
-    //listar todos os produtos da wishlist
+    //LISTAR todos os produtos da wishlist
     @GetMapping("/wishlist/{id}/produtos")
-    public List<Produto> mostrarProdutos(@PathVariable long id) {
-        //TODO tratar quando a wishlist não existe
-        return wishlistService.mostrarProduto(id);
+    public ResponseEntity<?> mostrarProdutos(@PathVariable long id) {
+        try {
+            List<Produto> produtos = wishlistService.mostrarProduto(id);
+            return new ResponseEntity<>(produtos, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    //buscar produtos na wishlist
+    //BUSCAR produtos na wishlist
     @GetMapping ("/wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> buscarProdutos (@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
@@ -65,7 +69,7 @@ public class WishlistController {
         }
     }
 
-    //TODO atualizar lista para apagar produto
+    //REMOVER produto da wishlist
     @DeleteMapping(value = "wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> removerProduto(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
