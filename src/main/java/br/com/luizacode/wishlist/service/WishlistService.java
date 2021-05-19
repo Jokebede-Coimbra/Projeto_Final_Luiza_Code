@@ -32,8 +32,7 @@ public class WishlistService {
             wishlistRepository.save(wishlist);
             return wishlist;
         }
-        //TODO cliente da wishlist não existe, retornar erro
-        return null;
+        throw new IllegalArgumentException("Cliente com id " + clienteWishlist.getId() + " não existe.");
     }
 
     //adicionar produtos

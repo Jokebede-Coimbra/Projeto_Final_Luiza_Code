@@ -26,6 +26,7 @@ public class Wishlist implements Serializable {
     @OneToOne
     private Cliente cliente;
 
+    //TODO limitar lista para até 20 produtos
     @OneToMany
     private List<Produto> produtos = new ArrayList<>();
 

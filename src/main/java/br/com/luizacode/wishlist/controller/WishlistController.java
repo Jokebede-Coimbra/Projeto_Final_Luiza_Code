@@ -17,18 +17,19 @@ public class WishlistController {
     @Autowired
     private WishlistService wishlistService;
 
-    private Object Wishlist;
-
-    private Object WishlistProdutoRemovido;
-
-    private Object Id;
+    //TODO adicionar anotações do Swagger
 
     //CRIAR uma wishlist
     @PostMapping("/wishlist")
-    public Wishlist adicionarWishlist(@RequestBody Wishlist wishlist) {
+    public ResponseEntity<?> adicionarWishlist(@RequestBody Wishlist wishlist) {
         //TODO criar DTO
-        //TODO tratar quando o cliente não existe
-        return wishlistService.criarWishlist(wishlist);
+        try {
+            Wishlist wishlistCriada = wishlistService.criarWishlist(wishlist);
+            return new ResponseEntity<>(wishlistCriada,HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+
     }
 
     //ADICIONAR produtos na wishlist
