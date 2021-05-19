@@ -17,6 +17,7 @@ import java.util.List;
 public class Wishlist implements Serializable {
 
     public static final long serialVersionUID = 1L;
+    private static int TAMANHO_WISHLIST = 20;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class Wishlist implements Serializable {
 
     //TODO limitar lista para até 20 produtos
     @OneToMany
-    private List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos = new ArrayList<>(TAMANHO_WISHLIST);
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -46,10 +47,17 @@ public class Wishlist implements Serializable {
         return produtos;
     }
 
-    public void adicionarProduto(Produto produto) {
-        produtos.add(produto);
+    public boolean adicionarProduto(Produto produto) {
+        if (produtos.size() < TAMANHO_WISHLIST) {
+            return produtos.add(produto);
+        }
+        return false;
     }
 
     public void remove(Produto produto) {
+    }
+
+    public int getTamanho() {
+        return produtos.size();
     }
 }
