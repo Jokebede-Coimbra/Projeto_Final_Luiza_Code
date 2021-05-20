@@ -18,11 +18,22 @@ public class ClienteService {
     }
 
     public Optional<Cliente> buscarCliente(Long id) {
-        return clienteRepository.findById(id);
+        Optional<Cliente> clienteBuscado = clienteRepository.findById(id);
+        //verifica se cliente existe
+        if (clienteBuscado.isPresent()) {
+            return clienteBuscado;
+        }
+        throw new IllegalArgumentException("Cliente com id " + id + " não existe.");
     }
 
-    public Cliente atualizarCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
-    }
+    public Cliente atualizarCliente(Cliente cliente, Long id) {
+        Optional<Cliente> clienteBuscado = clienteRepository.findById(id);
+        //verifica se cliente existe
+        if (clienteBuscado.isPresent()) {
+            cliente.setId(clienteBuscado.get().getId());
+            return clienteRepository.save(cliente);
+        }
+        throw new IllegalArgumentException("Cliente com id " + id + " não existe.");
 
+    }
 }

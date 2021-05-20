@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,7 +21,7 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
-    // ADICIONAR CLIENTE NO BANCO DE DADOS //
+    //ADICIONAR cliente no banco de dados
     @ApiOperation(value = "Adicionar novo cliente")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Returns the registered client.", response = Response.class),
@@ -28,14 +30,12 @@ public class ClienteController {
             @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
     })
     @PostMapping("/clientes")
-    public Cliente addCliente (@RequestBody Cliente cliente){
+    public Cliente addCliente(@RequestBody Cliente cliente) {
         return clienteService.adicionarCliente(cliente);
     }
 
-
-
-    // PROCURA CLIENTE NO BANCO DE DADOS //
-    @ApiOperation(value = "Buscar por cliente")
+    //BUSCAR cliente no banco de dados
+    @ApiOperation(value = "Buscar cliente")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Returns the wanted client.", response = Response.class),
             @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
@@ -43,13 +43,17 @@ public class ClienteController {
             @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
     })
     @GetMapping("/clientes/{id}")
-    public Optional<Cliente> buscarCliente(@PathVariable Long id){
-        return clienteService.buscarCliente(id);
+    public ResponseEntity<?> buscarCliente(@PathVariable Long id) {
+        try {
+            Optional<Cliente> clienteBuscado = clienteService.buscarCliente(id);
+            return new ResponseEntity<>(clienteBuscado, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+
     }
 
-
-
-    // ATUALIZA INFORMACOES DE CLIENTE //
+    //ATUALIZAR cliente no banco de dados
     @ApiOperation(value = "Atualizar dados de cliente")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Returns the client new informations.", response = Response.class),
@@ -58,12 +62,13 @@ public class ClienteController {
             @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
     })
     @PutMapping("/clientes/{id}")
-    public Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
-        Optional<Cliente> clientePosBusca = clienteService.buscarCliente(id);
-        if(clientePosBusca.isPresent()){
-            cliente.setId(clientePosBusca.get().getId());
-            return clienteService.atualizarCliente(cliente);
+    public ResponseEntity<?> atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+        try {
+            Cliente clienteAtualizado = clienteService.atualizarCliente(cliente, id);
+            return new ResponseEntity<>(clienteAtualizado, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
-        return null;
     }
 }
+
