@@ -2,6 +2,7 @@ package br.com.luizacode.wishlist.controller;
 
 
 import br.com.luizacode.wishlist.entity.Cliente;
+import br.com.luizacode.wishlist.entity.dto.ClienteDTO;
 import br.com.luizacode.wishlist.service.ClienteService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -46,7 +47,7 @@ public class ClienteController {
     public ResponseEntity<?> buscarCliente(@PathVariable Long id) {
         try {
             Optional<Cliente> clienteBuscado = clienteService.buscarCliente(id);
-            return new ResponseEntity<>(clienteBuscado, HttpStatus.OK);
+            return new ResponseEntity<>(ClienteDTO.converter(clienteBuscado.get()), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }

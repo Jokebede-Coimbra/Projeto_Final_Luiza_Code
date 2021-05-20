@@ -1,5 +1,6 @@
 package br.com.luizacode.wishlist.controller;
 
+import br.com.luizacode.wishlist.entity.dto.WishlistDTO;
 import br.com.luizacode.wishlist.entity.Produto;
 import br.com.luizacode.wishlist.entity.Wishlist;
 import br.com.luizacode.wishlist.service.WishlistService;
@@ -33,10 +34,9 @@ public class WishlistController {
     })
     @PostMapping("/wishlist")
     public ResponseEntity<?> adicionarWishlist(@RequestBody Wishlist wishlist) {
-        //TODO criar DTO
         try {
             Wishlist wishlistCriada = wishlistService.criarWishlist(wishlist);
-            return new ResponseEntity<>(wishlistCriada,HttpStatus.CREATED);
+            return new ResponseEntity<>(WishlistDTO.converter(wishlist),HttpStatus.CREATED);
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
@@ -55,7 +55,7 @@ public class WishlistController {
     public ResponseEntity<?> adicionarProduto(@PathVariable Long idWishlist, @RequestBody Produto produto) {
         try {
             Wishlist wishlist = wishlistService.adicionarProduto(idWishlist, produto);
-            return new ResponseEntity<>(wishlist, HttpStatus.OK);
+            return new ResponseEntity<>(WishlistDTO.converter(wishlist), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
