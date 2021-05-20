@@ -24,13 +24,13 @@ public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;
 
-    //ADICIONAR produto ao banco de dados
+    // ADICIONAR PRODUTO NO BANCO DE DADOS //
     @ApiOperation(value = "Adicionar novo produto")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Retorna o produto adicionado", response = Response.class),
-            @ApiResponse(code = 401, message = "Voce não tem a permissão para realizar esse procedimento", response = Response.class),
-            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown", response = Response.class),
+            @ApiResponse(code = 201, message = "Returns the registered product.", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
     })
     @PostMapping("/produtos")
     public ResponseEntity<Produto> adicionarProduto(@RequestBody Produto produto) {
@@ -41,13 +41,13 @@ public class ProdutoController {
         }
     }
 
-    //LISTAR produto do banco de dados
-    @ApiOperation(value = "Buscar todos os produtos")
+    // LISTAR TODOS OS PRODUTOS DO BANCO DE DADOS //
+    @ApiOperation(value = "Lista de todos os produtos")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Retorna a lista de produtos", response = Response.class),
-            @ApiResponse(code = 401, message = "Voce nao tem a permissão para realizar esse procedimento", response = Response.class),
-            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown", response = Response.class),
+            @ApiResponse(code = 201, message = "Returns the list product.", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
     })
     @GetMapping("/produtos")
     public  ResponseEntity<?> listarProdutos() {

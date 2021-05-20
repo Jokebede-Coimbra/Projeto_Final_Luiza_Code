@@ -3,6 +3,10 @@ package br.com.luizacode.wishlist.controller;
 import br.com.luizacode.wishlist.entity.Produto;
 import br.com.luizacode.wishlist.entity.Wishlist;
 import br.com.luizacode.wishlist.service.WishlistService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +23,16 @@ public class WishlistController {
 
     //TODO adicionar anotações do Swagger
 
-    //CRIAR uma wishlist
+
+
+    // CRIAR WISHLIST AO BANCO DE DADOS (SEM LOGIN DO USUARIO) //
+    @ApiOperation(value = "Criar Wishlist.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Returns the registered Wishlist", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+    })
     @PostMapping("/wishlist")
     public ResponseEntity<?> adicionarWishlist(@RequestBody Wishlist wishlist) {
         //TODO criar DTO
@@ -29,10 +42,18 @@ public class WishlistController {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
-
     }
 
-    //ADICIONAR produtos na wishlist
+
+
+    // ADICIONAR PRODUTOS NA WISHLIST //
+    @ApiOperation(value = "Adicionar produtos na Wishlist.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Returns the wishlist with a new product", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+    })
     @PostMapping("/wishlist/{idWishlist}/adicionar")
     public ResponseEntity<?> adicionarProduto(@PathVariable Long idWishlist, @RequestBody Produto produto) {
         try {
@@ -41,10 +62,18 @@ public class WishlistController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
-
     }
 
-    //LISTAR todos os produtos da wishlist
+
+
+    // LISTAR PRODUTOS DA WISHLIST //
+    @ApiOperation(value = "Lista de produtos na Wishlist.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Returns the whole Wishlist.", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+    })
     @GetMapping("/wishlist/{idWishlist}/produtos")
     public ResponseEntity<?> mostrarProdutos(@PathVariable Long idWishlist) {
         try {
@@ -55,7 +84,16 @@ public class WishlistController {
         }
     }
 
-    //BUSCAR produtos na wishlist
+
+
+    // BUSCAR PRODUTOS NA WISHLIST //
+    @ApiOperation(value = "Busca produto na Wishlist por Id do produto.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Returns the product.", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+    })
     @GetMapping ("/wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> buscarProdutosWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
@@ -75,7 +113,16 @@ public class WishlistController {
         }
     }
 
-    //REMOVER produto da wishlist
+
+
+    // DELETA PRODUTO DA WISHLIST //
+    @ApiOperation(value = "Deleta produto da Wishlist por Id do produto.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Returns the product.", response = Response.class),
+            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
+            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
+            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+    })
     @DeleteMapping(value = "wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> removerProdutoWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
@@ -93,5 +140,4 @@ public class WishlistController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 }
