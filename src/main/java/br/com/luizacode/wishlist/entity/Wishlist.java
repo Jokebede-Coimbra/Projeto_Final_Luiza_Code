@@ -57,7 +57,4 @@ public class Wishlist implements Serializable {
     public void remove(Produto produto) {
     }
 
-    public int getTamanho() {
-        return produtos.size();
-    }
 }

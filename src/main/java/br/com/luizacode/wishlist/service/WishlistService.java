@@ -29,6 +29,7 @@ public class WishlistService {
         Cliente clienteWishlist = wishlist.getCliente();
         Optional<Cliente> clienteBuscado = clienteRepository.findById(clienteWishlist.getId());
         if (clienteBuscado.isPresent()) {
+            wishlist.setCliente(clienteBuscado.get());
             wishlistRepository.save(wishlist);
             return wishlist;
         }
