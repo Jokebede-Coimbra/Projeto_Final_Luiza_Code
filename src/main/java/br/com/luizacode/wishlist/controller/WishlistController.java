@@ -3,6 +3,10 @@ package br.com.luizacode.wishlist.controller;
 import br.com.luizacode.wishlist.entity.Produto;
 import br.com.luizacode.wishlist.entity.Wishlist;
 import br.com.luizacode.wishlist.service.WishlistService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,13 @@ public class WishlistController {
     //TODO adicionar anotações do Swagger
 
     //CRIAR uma wishlist
+    @ApiOperation(value = "Adicionar uma Wishlist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Wishlist criada", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "Not Found", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
+    })
     @PostMapping("/wishlist")
     public ResponseEntity<?> adicionarWishlist(@RequestBody Wishlist wishlist) {
         //TODO criar DTO
@@ -33,6 +44,13 @@ public class WishlistController {
     }
 
     //ADICIONAR produtos na wishlist
+    @ApiOperation(value = "Adicionar um produto em uma Wishlist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Produto adicionado", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
+    })
     @PostMapping("/wishlist/{idWishlist}/adicionar")
     public ResponseEntity<?> adicionarProduto(@PathVariable Long idWishlist, @RequestBody Produto produto) {
         try {
@@ -45,6 +63,13 @@ public class WishlistController {
     }
 
     //LISTAR todos os produtos da wishlist
+    @ApiOperation(value = "Listar produtos em uma Wishlist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Produtos desta Wishlist", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
+    })
     @GetMapping("/wishlist/{idWishlist}/produtos")
     public ResponseEntity<?> mostrarProdutos(@PathVariable Long idWishlist) {
         try {
@@ -56,6 +81,13 @@ public class WishlistController {
     }
 
     //BUSCAR produtos na wishlist
+    @ApiOperation(value = "Buscar um produto em uma Wishlist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Produto encontrado", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
+    })
     @GetMapping ("/wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> buscarProdutosWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
@@ -76,6 +108,13 @@ public class WishlistController {
     }
 
     //REMOVER produto da wishlist
+    @ApiOperation(value = "Remover um produto em uma Wishlist")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Produto removido da Wishlist", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
+    })
     @DeleteMapping(value = "wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> removerProdutoWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
         try {
