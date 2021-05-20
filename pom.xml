@@ -56,22 +56,20 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-<<<<<<< HEAD
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
-=======
+
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.24</version>
 		</dependency>
 	</dependencies>
->>>>>>> b532eed28dfb262a3b2e873d4c7b108594c08be8
-
 	<build>
 		<plugins>
 			<plugin>
