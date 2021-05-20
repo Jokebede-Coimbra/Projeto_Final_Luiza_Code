@@ -23,15 +23,13 @@ public class WishlistController {
 
     //TODO adicionar anotações do Swagger
 
-
-
-    // CRIAR WISHLIST AO BANCO DE DADOS (SEM LOGIN DO USUARIO) //
-    @ApiOperation(value = "Criar Wishlist.")
+    //CRIAR uma wishlist
+    @ApiOperation(value = "Adicionar uma Wishlist")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Returns the registered Wishlist", response = Response.class),
-            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
-            @ApiResponse(code = 400, message = "Bad request.", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+            @ApiResponse(code = 201, message = "Wishlist criada", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "Not Found", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
     })
     @PostMapping("/wishlist")
     public ResponseEntity<?> adicionarWishlist(@RequestBody Wishlist wishlist) {
@@ -42,17 +40,16 @@ public class WishlistController {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
+      
     }
 
-
-
-    // ADICIONAR PRODUTOS NA WISHLIST //
-    @ApiOperation(value = "Adicionar produtos na Wishlist.")
+    //ADICIONAR produtos na wishlist
+    @ApiOperation(value = "Adicionar um produto em uma Wishlist")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returns the wishlist with a new product", response = Response.class),
-            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
-            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+            @ApiResponse(code = 200, message = "Produto adicionado", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
     })
     @PostMapping("/wishlist/{idWishlist}/adicionar")
     public ResponseEntity<?> adicionarProduto(@PathVariable Long idWishlist, @RequestBody Produto produto) {
@@ -62,17 +59,16 @@ public class WishlistController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
+      
     }
 
-
-
-    // LISTAR PRODUTOS DA WISHLIST //
-    @ApiOperation(value = "Lista de produtos na Wishlist.")
+    //LISTAR todos os produtos da wishlist
+    @ApiOperation(value = "Listar produtos em uma Wishlist")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returns the whole Wishlist.", response = Response.class),
-            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
-            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+            @ApiResponse(code = 200, message = "Produtos desta Wishlist", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
     })
     @GetMapping("/wishlist/{idWishlist}/produtos")
     public ResponseEntity<?> mostrarProdutos(@PathVariable Long idWishlist) {
@@ -84,15 +80,13 @@ public class WishlistController {
         }
     }
 
-
-
-    // BUSCAR PRODUTOS NA WISHLIST //
-    @ApiOperation(value = "Busca produto na Wishlist por Id do produto.")
+    //BUSCAR produtos na wishlist
+    @ApiOperation(value = "Buscar um produto em uma Wishlist")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returns the product.", response = Response.class),
-            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
-            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+            @ApiResponse(code = 200, message = "Produto encontrado", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
     })
     @GetMapping ("/wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> buscarProdutosWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
@@ -113,15 +107,13 @@ public class WishlistController {
         }
     }
 
-
-
-    // DELETA PRODUTO DA WISHLIST //
-    @ApiOperation(value = "Deleta produto da Wishlist por Id do produto.")
+    //REMOVER produto da wishlist
+    @ApiOperation(value = "Remover um produto em uma Wishlist")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returns the product.", response = Response.class),
-            @ApiResponse(code = 401, message = "You do not have permission to access this feature.", response = Response.class),
-            @ApiResponse(code = 404, message = "Passenger not found.", response = Response.class),
-            @ApiResponse(code = 500, message = "An exception was thrown.", response = Response.class),
+            @ApiResponse(code = 200, message = "Produto removido da Wishlist", response = Response.class),
+            @ApiResponse(code = 400, message = "Bad request", response = Response.class),
+            @ApiResponse(code = 404, message = "O Produto e/ou a Wishlist não existe", response = Response.class),
+            @ApiResponse(code = 500, message = "Erro no servidor", response = Response.class),
     })
     @DeleteMapping(value = "wishlist/{idWishlist}/produtos/{idProduto}")
     public ResponseEntity<?> removerProdutoWishlist(@PathVariable Long idWishlist, @PathVariable Long idProduto) {
