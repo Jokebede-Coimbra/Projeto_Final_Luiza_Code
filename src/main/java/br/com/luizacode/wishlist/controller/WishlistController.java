@@ -40,7 +40,7 @@ public class WishlistController {
         } catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
-
+      
     }
 
     //ADICIONAR produtos na wishlist
@@ -59,7 +59,7 @@ public class WishlistController {
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
-
+      
     }
 
     //LISTAR todos os produtos da wishlist
@@ -132,5 +132,4 @@ public class WishlistController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 }

@@ -8,6 +8,7 @@
 
 O desafio final consiste em desenvolver um serviço HTTP resolvendo a funcionalidade de wishlist para um site e-commerce baseado na arquitetura de microsserviços.
 
+![swagger page](imagens/swagger%20page.jpeg)
 
 
 #### 🚀 Começando
@@ -42,7 +43,25 @@ Para executar o projeto, será necessário instalar os seguintes programas:
 
 4. Acesse o Swagger
 
-   localhost/8080
+   http://localhost:8080/swagger-ui.html
+
+#### 🎬 Execução
+
+Acesso aos Endpoints via Swagger.
+
+*Cliente Endpoint.*
+
+![cliente controller swagger](imagens/cliente%20controller%20swagger.jpeg)
+
+*Produto Endpoint.*
+
+![produto controller swagger](imagens/produto%20controller%20swagger.jpeg)
+
+*Wishlist Endpoint.*
+
+![wishcontroller swagger](imagens/wishcontroller%20swagger.jpeg)
+
+
 
 
 
@@ -53,5 +72,13 @@ Para executar o projeto, será necessário instalar os seguintes programas:
 - Gabriela Silvestre
 - Jokebede Coimbra
 - Rosicleite Monteiro
+
+
+#### 🎁 Expressões de gratidão
+
+- Tainá Medeiros
+- Regina Giovannini
+- Turma 2 - Luiza Labs
+- Gama Academy
 
 
