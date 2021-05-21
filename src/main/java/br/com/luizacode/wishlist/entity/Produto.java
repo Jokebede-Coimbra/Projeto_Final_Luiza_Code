@@ -67,8 +67,4 @@ public class Produto implements Serializable {
     public String getImagem() {
         return imagem;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
