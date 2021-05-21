@@ -1,4 +1,4 @@
-package br.com.luizacode.wishlist;
+package br.com.luizacode.wishlist.service;
 
 
 import br.com.luizacode.wishlist.entity.Produto;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-public class ProdutoControllerTest {
+public class ProdutoServiceTest {
 
     @Autowired
     ProdutoService produtoService;

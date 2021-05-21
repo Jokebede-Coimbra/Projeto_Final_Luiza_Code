@@ -1,8 +1,6 @@
-package br.com.luizacode.wishlist;
-
+package br.com.luizacode.wishlist.service;
 
 import br.com.luizacode.wishlist.entity.Cliente;
-import br.com.luizacode.wishlist.service.ClienteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +10,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class ClienteControllerTest {
+class ClienteServiceTest {
 
     @Autowired
     ClienteService clienteService;
