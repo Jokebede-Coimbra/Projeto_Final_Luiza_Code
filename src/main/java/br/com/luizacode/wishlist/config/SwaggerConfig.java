@@ -30,11 +30,11 @@ import static springfox.documentation.builders.PathSelectors.regex;
 
         private ApiInfo metaInfo(){
             ApiInfo apiInfo = new ApiInfo(
-                    "API REST",
-                    "Projeto Wishlist",
+                    "Luiza <Code> 2a Edição - API REST",
+                    "Desafio Final - Projeto Wishlist",
                     "1.0",
                     "Termos de Serviço",
-                    new Contact("Andrea Gnecco, Danielle Cassita, Gabriela Silvestre, Jokebede Coimbra, Rosicleite Monteiro","",""),
+                    new Contact("Andrea Gnecco, Danielle Cassita, Gabriela Silvestre, Jokebede Coimbra, Rosicleite Monteiro","https://wishlist-luizacode.herokuapp.com/swagger-ui.html",""),
                     "Apache License Version 2.0",
                     "http://www.apache.org/license.html", new ArrayList<VendorExtension>()
             );
