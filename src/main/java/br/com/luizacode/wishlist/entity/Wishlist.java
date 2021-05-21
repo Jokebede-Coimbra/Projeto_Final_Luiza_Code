@@ -53,8 +53,4 @@ public class Wishlist implements Serializable {
         }
         return false;
     }
-
-    public void remove(Produto produto) {
-    }
-
 }

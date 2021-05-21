@@ -6,7 +6,7 @@
 
 #### 📌 Objetivo
 
-O desafio final consiste em desenvolver um serviço HTTP resolvendo a funcionalidade de wishlist para um site e-commerce baseado na arquitetura de microsserviços.
+O desafio final consiste em desenvolver API REST resolvendo a funcionalidade de wishlist para um site e-commerce baseado na arquitetura de microsserviços.
 
 ![swagger page](imagens/swagger%20page.jpeg)
 
@@ -59,9 +59,7 @@ Acesso aos Endpoints via Swagger.
 
 *Wishlist Endpoint.*
 
-![wishcontroller swagger](imagens/wishcontroller%20swagger.jpeg)
-
-
+![wishcontroller swagger](imagens/wishlist%20controller%20swagger.jpeg)
 
 
 

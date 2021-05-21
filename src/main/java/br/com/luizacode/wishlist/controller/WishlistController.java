@@ -22,8 +22,6 @@ public class WishlistController {
     @Autowired
     private WishlistService wishlistService;
 
-    //TODO adicionar anotações do Swagger
-
     //CRIAR uma wishlist
     @ApiOperation(value = "Adicionar uma Wishlist")
     @ApiResponses(value = {
