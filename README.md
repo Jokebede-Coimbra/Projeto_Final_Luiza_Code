@@ -15,7 +15,7 @@ O desafio final consiste em desenvolver API REST resolvendo a funcionalidade de 
 
 Para executar o projeto, será necessário instalar os seguintes programas:
 
-- JDK 16: Necessário para executar o projeto Java.
+- JDK 11: Necessário para executar o projeto Java.
 
   <https://www.oracle.com/java/technologies/javase-downloads.html>
 
